@@ -5,5 +5,6 @@ export const colorPallete = {
     'lightGreen': '#BCD7D3',
     'fullDarkGreen': '#0B4C55',
     'beigeText':'#FCF9ED',
-    'darkOrange': '#C25F2D'
+    'darkOrange': '#C25F2D',
+    'red':'#ff0000'
 }
