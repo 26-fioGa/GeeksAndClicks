@@ -1,4 +1,4 @@
 export function usernameValidator(username) {
-  if (!username) return "Username can't be empty."
+  if (!username) return "El campo no puede estar vacío."
   return ''
 }

@@ -1,5 +1,5 @@
 export function confirmPasswordValidator(password,confirmPassword) {
-  if (!confirmPassword) return "ConfirmPassword can't be empty."
-  if (password != confirmPassword) return "Password and confirmation password don't match."
+  if (!confirmPassword) return "El campo no puede estar vacío."
+  if (password != confirmPassword) return "No coincide con la contraseña."
   return ''
 }
