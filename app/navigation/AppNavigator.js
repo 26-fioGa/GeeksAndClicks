@@ -5,28 +5,29 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthNavigator from './AuthNavigator';
 import HomeNavigator from './HomeNavigator';
 */
-import BottomTabNavigator from './BottomTabNavigator';
+import DrawerNavigation from './DrawerNavigation';
 import LoginScreen from '../screens/auth/LoginScreen';
 import RegisterScreen from '../screens/auth/RegisterScreen';
 
 const MainNavigator = createNativeStackNavigator();
 
-
 export default function AppNavigator() {
-    const user = true;
-
+    const isUserLoggedIn = true;
     return (
         <NavigationContainer>
-            <MainNavigator.Navigator
-                screenOptions={{
-                    headerShown: false
-                }}
-                initialRouteName="Login"
-            >
-                <MainNavigator.Screen name="Login" component={LoginScreen} />
-                <MainNavigator.Screen name="Register" component={RegisterScreen} />
-                <MainNavigator.Screen name="Home" component={BottomTabNavigator} />
-            </MainNavigator.Navigator>
+            {isUserLoggedIn ? (
+                <DrawerNavigation />
+            ) : (
+                <MainNavigator.Navigator
+                    screenOptions={{
+                        headerShown: false
+                    }}
+                    initialRouteName="Login"
+                >
+                    <MainNavigator.Screen name="Login" component={LoginScreen} />
+                    <MainNavigator.Screen name="Register" component={RegisterScreen} />
+                </MainNavigator.Navigator>
+            )}
         </NavigationContainer>
     )
 }

@@ -32,9 +32,10 @@ export default function BottomTabNavigator() {
                 },
                 tabBarActiveTintColor: colorPallete.white,
                 tabBarInactiveTintColor: colorPallete.darkGreen,
-                tabBarActiveBackgroundColor: colorPallete.darkGreen,
+                tabBarActiveBackgroundColor: colorPallete.fullDarkGreen,
                 tabBarInactiveBackgroundColor: colorPallete.beigeText
             })}
+            initialRouteName="Tutoriales"
         >
             <Tab.Screen name="Tutoriales" component={TutorialesScreen} />
             <Tab.Screen name="Foro" component={ForoScreen} />
