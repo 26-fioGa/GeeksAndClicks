@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { usernameValidator } from '../../helpers/usernameValidator'
 import { passwordValidator } from '../../helpers/passwordValidator'
 import { confirmPasswordValidator } from '../../helpers/confirmPasswordValidator'
+import URL from '../../data/baseURLAPI';
 
 export default function RegisterForm() {
 
@@ -27,7 +28,7 @@ export default function RegisterForm() {
             setPassword({ ...password, error: passwordError })
             setConfirmPassword({ ...confirmPassword, error: confirmPasswordError })
         }else{
-            await fetch('http://192.168.16.106:3000/api/user', {
+            await fetch(`${URL}/api/user`, {
                 method: 'POST',
                 headers: {
                     Accept: 'application/json',

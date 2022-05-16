@@ -1,16 +1,18 @@
-import React, {useState, useEffect} from 'react';
-import {StyleSheet, View, Alert, AsyncStorage} from 'react-native';
+import React, {useState, useEffect,useContext} from 'react';
+import {StyleSheet, View, Alert} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import {colorPallete} from '../../data/colorPallete';
 import {useNavigation} from '@react-navigation/native';
 import {usernameValidator} from '../../helpers/usernameValidator';
 import {passwordValidator} from '../../helpers/passwordValidator';
+import URL from '../../data/baseURLAPI';
+import AuthContext from './context';
 
 export default function LoginForm() {
   const navigation = useNavigation();
   const [username, setUsername] = useState({value: '', error: ''});
   const [password, setPassword] = useState({value: '', error: ''});
-
+  const { signIn } = useContext(AuthContext);
   /* const a = async()=>{
     const b = await AsyncStorage.getItem("token")
     console.log(b)
@@ -27,7 +29,7 @@ export default function LoginForm() {
       setUsername({...username, error: usernameError});
       setPassword({...password, error: passwordError});
     } else {
-      await fetch('http://192.168.16.106:3000/api/auth/login', {
+      await fetch(`${URL}/api/auth/login`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -41,7 +43,7 @@ export default function LoginForm() {
         .then(response => response.json())
         .then(resData => {
           if (resData.status == '200') {
-            AsyncStorage.setItem('token', resData.body); //JSON.stringify()
+            signIn(resData);
             Alert.alert(
               'Inicio de Sesión Exitoso',
               'Bienvenido ' + username.value,
