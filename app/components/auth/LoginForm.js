@@ -1,4 +1,4 @@
-import React, {useState, useEffect,useContext} from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {StyleSheet, View, Alert} from 'react-native';
 import {TextInput, Button, Text} from 'react-native-paper';
 import {colorPallete} from '../../data/colorPallete';
@@ -12,7 +12,7 @@ export default function LoginForm() {
   const navigation = useNavigation();
   const [username, setUsername] = useState({value: '', error: ''});
   const [password, setPassword] = useState({value: '', error: ''});
-  const { signIn } = useContext(AuthContext);
+  const {signIn} = useContext(AuthContext);
   /* const a = async()=>{
     const b = await AsyncStorage.getItem("token")
     console.log(b)
@@ -43,11 +43,17 @@ export default function LoginForm() {
         .then(response => response.json())
         .then(resData => {
           if (resData.status == '200') {
-            signIn(resData);
             Alert.alert(
               'Inicio de Sesión Exitoso',
               'Bienvenido ' + username.value,
-              [{text: 'OK', onPress: () => navigation.navigate('Home')}],
+              [
+                {
+                  text: 'OK',
+                  onPress: () => {
+                    signIn(resData,username.value);
+                  },
+                },
+              ],
             );
           } else {
             Alert.alert('Credenciales incorrectas', 'Inténtalo de nuevo', [
