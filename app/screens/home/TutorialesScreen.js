@@ -88,6 +88,6 @@ const styles = StyleSheet.create({
     paddingVertical: 30,
   },
   categoryListContainer: {
-    margin: 20,
+    margin: 10,
   },
 });

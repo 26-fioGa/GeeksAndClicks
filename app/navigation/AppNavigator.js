@@ -107,9 +107,7 @@ export default function AppNavigator() {
     <AuthContext.Provider value={authContext}>
       <NavigationContainer>
         {loginState.userToken !== null ? (
-          <DrawerNavigation />
-        ) : (
-          <MainNavigator.Navigator
+            <MainNavigator.Navigator
             screenOptions={{
               headerShown: false,
             }}
@@ -117,6 +115,8 @@ export default function AppNavigator() {
             <MainNavigator.Screen name="Login" component={LoginScreen} />
             <MainNavigator.Screen name="Register" component={RegisterScreen} />
           </MainNavigator.Navigator>
+        ) : (
+            <DrawerNavigation />
         )}
       </NavigationContainer>
     </AuthContext.Provider>
