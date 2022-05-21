@@ -6,11 +6,11 @@ import ForoScreen from '../screens/home/ForoScreen';
 import PerfilScreen from '../screens/home/PerfilScreen';
 import NotificacionesScreen from '../screens/home/NotificacionesScreen';
 import NuevoPostScreen from '../screens/home/NuevoPostScreen';
+import TutorialesStack from './stacks/TutorialesStack';
 import { colorPallete } from '../data/colorPallete';
 import {
-  StyleSheet, Text, View, Image, TouchableOpacity
+  StyleSheet
 } from 'react-native';
-import iconButton from 'react-native-vector-icons/dist/lib/icon-button';
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabNavigator() {
@@ -53,10 +53,10 @@ export default function BottomTabNavigator() {
         tabBarInactiveTintColor: colorPallete.lightGreen,
       })}
       initialRouteName="Tutoriales">
-      <Tab.Screen name="Tutoriales" component={TutorialesScreen}/>
-      <Tab.Screen name="Foro" component={ForoScreen} />
-      <Tab.Screen name="Nuevo Post" component={NuevoPostScreen} />
-      <Tab.Screen name="Notificaciones" component={NotificacionesScreen} />
+      <Tab.Screen name="Tutoriales" component={TutorialesStack} />
+      <Tab.Screen name="Foro" component={ForoScreen}  />
+      <Tab.Screen name="Nuevo Post" component={NuevoPostScreen}  />
+      <Tab.Screen name="Notificaciones" component={NotificacionesScreen} options={{ tabBarBadge: 3 }}  />
       <Tab.Screen name="Perfil" component={PerfilScreen} />
     </Tab.Navigator>
   );

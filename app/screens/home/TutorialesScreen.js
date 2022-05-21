@@ -45,7 +45,7 @@ const TutorialesScreen = () => {
         start={{x: 0, y: 0.5}}
         end={{x: 1, y: 0.5}}
         style={styles.welcomeContainer}>
-        <Text style={styles.welcomeText}>Bienvenido {username} </Text>
+        <Text style={styles.welcomeText}>Bienvenido, {username} </Text>
       </LinearGradient>
       <SafeAreaView
         style={{

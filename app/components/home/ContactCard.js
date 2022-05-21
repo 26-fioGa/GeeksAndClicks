@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     },
     contactCard: {
         marginHorizontal: 10,
-        padding: 20,
+        padding: 15,
         borderTopLeftRadius: 20,
         borderBottomRightRadius: 20,
         shadowColor: '#000',
