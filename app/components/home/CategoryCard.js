@@ -1,5 +1,6 @@
 import * as React from 'react';
-import {colorPallete} from '../../data/colorPallete';
+import { colorPallete } from '../../data/colorPallete';
+import { useNavigation } from '@react-navigation/native';
 import {
   Text,
   View,
@@ -11,19 +12,23 @@ import {
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
-const CategoryCard = ({name, image}) => (
-  <TouchableOpacity>
-    <View style={styles.categoryContainer}>
-      <Image style={styles.imageCategory} source={image}></Image>
-      <Text style={styles.textCategory}>{name}</Text>
-      <Ionicons
-        name="arrow-forward-circle"
-        size={30}
-        color={colorPallete.darkGreen}
-        style={{marginTop: 10, textAlign: 'right'}}></Ionicons>
-    </View>
-  </TouchableOpacity>
-);
+const CategoryCard = ({ name, image }) => {
+  const navigation = useNavigation();
+
+  return (
+    <TouchableOpacity onPress={() => navigation.navigate('TutorialesList')}>
+      <View style={styles.categoryContainer}>
+        <Image style={styles.imageCategory} source={image}></Image>
+        <Text style={styles.textCategory}>{name}</Text>
+        <Ionicons
+          name="arrow-forward-circle"
+          size={30}
+          color={colorPallete.darkGreen}
+          style={{ marginTop: 10, textAlign: 'right' }}></Ionicons>
+      </View>
+    </TouchableOpacity>
+  )
+};
 export default CategoryCard;
 
 const styles = StyleSheet.create({
