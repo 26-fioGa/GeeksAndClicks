@@ -7,6 +7,7 @@ import LoginScreen from '../screens/auth/LoginScreen';
 import RegisterScreen from '../screens/auth/RegisterScreen';
 import AuthContext from '../components/auth/context';
 import { ActivityIndicator } from 'react-native-paper';
+import jwt_decode from "jwt-decode";
 
 const MainNavigator = createNativeStackNavigator();
 
@@ -52,11 +53,12 @@ export default function AppNavigator() {
     () => ({
       signIn: async (user1, userName) => {
         const userToken = String(user1.body);
-
+        const decoded = jwt_decode(userToken);
+    
         try {
           await AsyncStorage.setItem(
             'user',
-            JSON.stringify({ token: userToken, username: userName }),
+            JSON.stringify({ token: userToken, id:decoded.id, username: userName }),
           );
         } catch (e) {
           console.log(e);
@@ -72,11 +74,7 @@ export default function AppNavigator() {
           console.log(e);
         }
         dispatch({ type: 'LOGOUT' });
-      },
-      signUp: () => {
-        //setUserToken('asd');
-        //setIsLoading(false);
-      },
+      }
     }),
     [],
   );

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {StyleSheet, View, Text, Alert} from 'react-native';
 import {TextInput, Button} from 'react-native-paper';
 import {colorPallete} from '../../data/colorPallete';
@@ -7,6 +7,7 @@ import {usernameValidator} from '../../helpers/usernameValidator';
 import {passwordValidator} from '../../helpers/passwordValidator';
 import {confirmPasswordValidator} from '../../helpers/confirmPasswordValidator';
 import URL from '../../data/baseURLAPI';
+import AuthContext from './context';
 
 export default function RegisterForm() {
   const navigation = useNavigation();
@@ -16,6 +17,7 @@ export default function RegisterForm() {
     value: '',
     error: '',
   });
+  const {signIn} = useContext(AuthContext);
 
   useEffect(() => {}, [username, password, confirmPassword]);
 
@@ -39,16 +41,23 @@ export default function RegisterForm() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          name: username.value,
           username: username.value,
           password: password.value,
         }),
       })
         .then(res => res.json())
         .then(resData => {
-          if (resData.status == '201') {
+          if (resData.status == 201) {
             Alert.alert('Registro Exitoso', 'Bienvenido ' + username.value, [
-              {text: 'OK', onPress: () => navigation.navigate('Login')},
+              {text: 'OK', onPress: () => signIn(resData, username.value)},
             ]);
+          } else if (resData.status == 500) {
+            Alert.alert(
+              'Oops! Nombre de usuario existente',
+              'Ingresa un nombre de usuario diferente',
+              [{text: 'OK', onPress: () => {}}],
+            );
           } else {
             Alert.alert('Ooops! Algo salió mal', 'Inténtalo de nuevo', [
               {text: 'OK', onPress: () => {}},
