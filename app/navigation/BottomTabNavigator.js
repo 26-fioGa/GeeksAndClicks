@@ -1,12 +1,11 @@
 import * as React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import TutorialesScreen from '../screens/home/TutorialesScreen';
-import ForoScreen from '../screens/home/ForoScreen';
 import PerfilScreen from '../screens/home/PerfilScreen';
 import NotificacionesScreen from '../screens/home/NotificacionesScreen';
 import NuevoPostScreen from '../screens/home/NuevoPostScreen';
 import TutorialesStack from './stacks/TutorialesStack';
+import ForoStack from './stacks/ForoStack';
 import { colorPallete } from '../data/colorPallete';
 import {
   StyleSheet
@@ -54,7 +53,7 @@ export default function BottomTabNavigator() {
       })}
       initialRouteName="Tutoriales">
       <Tab.Screen name="Tutoriales" component={TutorialesStack} />
-      <Tab.Screen name="Foro" component={ForoScreen}  />
+      <Tab.Screen name="Foro" component={ForoStack}  />
       <Tab.Screen name="Nuevo Post" component={NuevoPostScreen}  />
       <Tab.Screen name="Notificaciones" component={NotificacionesScreen} options={{ tabBarBadge: 3 }}  />
       <Tab.Screen name="Perfil" component={PerfilScreen} />
