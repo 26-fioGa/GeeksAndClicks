@@ -14,19 +14,17 @@ const PersonalPostCard = ({ titulo, contenido }) => {
 
     return (
         <View>
-            <TouchableOpacity>
-                <Card style={styles.cardContainer}>
-                    <Card.Content>
-                        <Title style={styles.tituloTutorial}>{titulo}</Title>
-                        <Paragraph style={styles.contenidoTutorial}>{contenido.slice(0, 150) + "..."}</Paragraph>
-                        <Divider style={{marginVertical: 2}} />
-                        <View style={styles.accionesContainer}>
-                            <Button icon="square-edit-outline" mode="text" color={colorPallete.darkBlue}>Editar</Button>
-                            <Button icon="delete-outline" mode="text" color={colorPallete.red}>Eliminar</Button>
-                        </View>
-                    </Card.Content>
-                </Card>
-            </TouchableOpacity>
+            <Card style={styles.cardContainer}>
+                <Card.Content>
+                    <Title style={styles.tituloTutorial}>{titulo}</Title>
+                    <Paragraph style={styles.contenidoTutorial}>{contenido.slice(0, 150) + "..."}</Paragraph>
+                    <Divider style={{ marginVertical: 2 }} />
+                    <View style={styles.accionesContainer}>
+                        <Button icon="square-edit-outline" mode="text" color={colorPallete.darkBlue}>Editar</Button>
+                        <Button icon="delete-outline" mode="text" color={colorPallete.red}>Eliminar</Button>
+                    </View>
+                </Card.Content>
+            </Card>
         </View>
     )
 };
