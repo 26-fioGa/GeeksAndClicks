@@ -15,7 +15,7 @@ export default function TutorialesListScreen() {
                 style={{
                     justifyContent: 'center',
                     width: '100%',
-                    height: '90%',
+                    height: '93%',
                     padding: 15,
                 }}>
                 <FlatList
