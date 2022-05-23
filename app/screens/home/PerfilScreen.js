@@ -15,18 +15,13 @@ export default function PerfilScreen() {
   );
   return (
     <View style={styles.generalContainer}>
-      <ImageBackground style={styles.perfilBackground} imageStyle={{ borderBottomLeftRadius: 30, borderBottomRightRadius: 30 }} source={require('../../assets/drawerBackground.png')}>
-        <Avatar.Image style={styles.userImage} size={140} source={{ uri: userImage }} />
-        <Text style={styles.userName}>{userName}</Text>
-      </ImageBackground>
-      <SafeAreaView
-        style={{
-          justifyContent: 'center',
-          width: '100%',
-          height: '100%',
-          padding: 15,
-          backgroundColor: '#000'
-        }}>
+      <View style={{ width: '100%', height: '35%' }}>
+        <ImageBackground style={styles.perfilBackground} imageStyle={{ borderBottomLeftRadius: 30, borderBottomRightRadius: 30 }} source={require('../../assets/drawerBackground.png')}>
+          <Avatar.Image style={styles.userImage} size={140} source={{ uri: userImage }} />
+          <Text style={styles.userName}>{userName}</Text>
+        </ImageBackground>
+      </View>
+      <SafeAreaView style={styles.safeAreaStyle}>
         <FlatList
           data={personalPostList}
           renderItem={renderPersonalPost}
@@ -48,15 +43,22 @@ const styles = StyleSheet.create({
   },
   perfilBackground: {
     width: '100%',
-    height: '0%',
+    height: '100%',
     alignItems: 'center',
   },
   userImage: {
-    marginTop: 50
+    marginTop: '10%'
   },
   userName: {
     color: colorPallete.white,
     fontSize: 22,
     marginTop: 10
+  },
+  safeAreaStyle: {
+    justifyContent: 'center',
+    width: '100%',
+    height: '70%',
+    padding: 15,
+    backgroundColor: colorPallete.white
   }
 });

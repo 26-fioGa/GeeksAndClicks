@@ -17,12 +17,14 @@ const NotificacionCard = ({ userName, userImage, action }) => {
     return (
         <View>
             <TouchableOpacity >
-                <Card.Title
-                    title={titulo}
-                    subtitle={subtitulo}
-                    titleStyle={styles.titulo}
-                    left={(props) => <Avatar.Image {...props} size={40} source={{uri: userImage}}  />}
-                />
+                <Card style={styles.card}>
+                    <Card.Title
+                        title={titulo}
+                        subtitle={subtitulo}
+                        titleStyle={styles.titulo}
+                        left={(props) => <Avatar.Image {...props} size={40} source={{ uri: userImage }} />}
+                    />
+                </Card>
             </TouchableOpacity>
         </View>
     )
@@ -35,5 +37,18 @@ const styles = StyleSheet.create({
     },
     titulo: {
         color: colorPallete.darkText
+    },
+    card: {
+        borderRadius: 20,
+        shadowColor: '#000',
+        marginVertical: 5,
+        marginHorizontal: 5,
+        shadowOffset: {
+            width: 0,
+            height: 10
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.5,
+        elevation: 5
     }
 });
