@@ -1,2 +1,2 @@
-const URL = "http://192.168.16.106:3000"; 
+const URL = "https://www.geeksandclicks.link"; 
 export default URL;

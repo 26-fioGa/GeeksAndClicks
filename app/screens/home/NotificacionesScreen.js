@@ -1,12 +1,16 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, SafeAreaView, FlatList } from 'react-native';
-import { colorPallete } from '../../data/colorPallete';
-import { notificacionesList } from '../../data/notificacionesList';
+import {Text, View, StyleSheet, SafeAreaView, FlatList} from 'react-native';
+import {colorPallete} from '../../data/colorPallete';
+import {notificacionesList} from '../../data/notificacionesList';
 import NotificacionCard from '../../components/home/NotificacionCard';
 
 export default function NotificacionesScreen() {
-  const renderNotificacion = ({ item }) => (
-    <NotificacionCard userName={item.userName} userImage={item.userImage} action={item.action} />
+  const renderNotificacion = ({item}) => (
+    <NotificacionCard
+      userName={item.userName}
+      userImage={item.userImage}
+      action={item.action}
+    />
   );
   return (
     <View style={styles.mainContainer}>
@@ -43,6 +47,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     paddingHorizontal: 20,
     paddingVertical: 10,
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 });

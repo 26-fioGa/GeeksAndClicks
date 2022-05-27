@@ -1,22 +1,19 @@
 import * as React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import TutorialesScreen from '../screens/home/TutorialesScreen';
-import ForoScreen from '../screens/home/ForoScreen';
-import PerfilScreen from '../screens/home/PerfilScreen';
+import PostStack from './stacks/PostStack';
 import NotificacionesScreen from '../screens/home/NotificacionesScreen';
 import NuevoPostScreen from '../screens/home/NuevoPostScreen';
 import TutorialesStack from './stacks/TutorialesStack';
-import { colorPallete } from '../data/colorPallete';
-import {
-  StyleSheet
-} from 'react-native';
+import ForoStack from './stacks/ForoStack';
+import {colorPallete} from '../data/colorPallete';
+import {StyleSheet} from 'react-native';
 const Tab = createBottomTabNavigator();
 
 export default function BottomTabNavigator() {
   return (
     <Tab.Navigator
-      screenOptions={({ route }) => ({
+      screenOptions={({route}) => ({
         headerShown: false,
         tabBarLabelStyle: {
           paddingBottom: 5,
@@ -30,8 +27,8 @@ export default function BottomTabNavigator() {
           backgroundColor: colorPallete.fullDarkGreen,
           borderRadius: 15,
           height: 60,
-          padding:10,
-          ...styles.shadow
+          padding: 10,
+          ...styles.shadow,
         },
         tabBarIcon: ({focused, color, size}) => {
           let iconName;
@@ -53,11 +50,26 @@ export default function BottomTabNavigator() {
         tabBarInactiveTintColor: colorPallete.lightGreen,
       })}
       initialRouteName="Tutoriales">
-      <Tab.Screen name="Tutoriales" component={TutorialesStack} />
-      <Tab.Screen name="Foro" component={ForoScreen}  />
-      <Tab.Screen name="Nuevo Post" component={NuevoPostScreen}  />
-      <Tab.Screen name="Notificaciones" component={NotificacionesScreen} options={{ tabBarBadge: 3 }}  />
-      <Tab.Screen name="Perfil" component={PerfilScreen} />
+      <Tab.Screen
+        name="Tutoriales"
+        component={TutorialesStack}
+        options={{unmountOnBlur: true}}
+      />
+      <Tab.Screen
+        name="Foro"
+        component={ForoStack}
+        options={{unmountOnBlur: true}}
+      />
+      <Tab.Screen
+        name="Nuevo Post"
+        component={NuevoPostScreen}
+        options={{unmountOnBlur: true}}
+      />
+      <Tab.Screen
+        name="Perfil"
+        component={PostStack}
+        options={{unmountOnBlur: true}}
+      />
     </Tab.Navigator>
   );
 }
@@ -67,10 +79,10 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 10
+      height: 10,
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.5,
-    elevation: 5
-  }
+    elevation: 5,
+  },
 });

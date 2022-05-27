@@ -5,102 +5,91 @@ import {TextInput, Button} from 'react-native-paper';
 import {FAB} from 'react-native-paper';
 import {launchImageLibrary} from 'react-native-image-picker';
 import URL from '../../data/baseURLAPI';
-import AuthContext from '../../components/auth/context';
-import {usernameValidator} from '../../helpers/usernameValidator';
-import {imageValidator} from '../../helpers/imageValidator';
-import LoadingComponent from '../../components/home/LoadingComponent';
+import {useNavigation} from '@react-navigation/native';
 
-export default function NuevoPostScreen({navigation}) {
+export default function EditPostScreen({route}) {
+  const navigation = useNavigation();
   const [state, setState] = React.useState({open: false});
-  const [username, setUsername] = React.useState(null);
   const [showDelete, setShowDelete] = React.useState(false);
-  const [titulo, setTitulo] = React.useState({value: '', error: ''});
-  const [descripcion, setDescripcion] = React.useState({value: '', error: ''});
-  const onStateChange = ({open}) => setState({open});
-  const [response, setResponse] = React.useState(null);
-  const {open} = state;
-  const {getToken} = React.useContext(AuthContext);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [image, setImage] = React.useState(null);
-
-  getToken().then(result => {
-    setUsername(result.username);
-    setIsLoading(false);
+  const [titulo, setTitulo] = React.useState({
+    value: route.params.titulo,
+    error: '',
   });
+  const [descripcion, setDescripcion] = React.useState({
+    value: route.params.contenido,
+    error: '',
+  });
+  const onStateChange = ({open}) => setState({open});
+  const [response, setResponse] = React.useState({
+    assets: [{uri: route.params.img}],
+  });
+  const {open} = state;
 
-  React.useEffect(() => {}, [titulo, descripcion, image]);
+  const saveData = () => {
+    var formdata = new FormData();
+    formdata.append('id', route.params.id);
+    formdata.append('text', descripcion.value);
+    formdata.append('titulo', titulo.value);
+    formdata.append('categoria', '');
 
-  const saveData = async () => {
-    const tituloError = usernameValidator(titulo.value);
-    const descripcionError = usernameValidator(descripcion.value);
-    const imageError = imageValidator(response);
-
-    if (tituloError || descripcionError || imageError) {
-      setTitulo({...titulo, error: tituloError});
-      setDescripcion({...descripcion, error: descripcionError});
-      setImage(imageError);
-    } else {
-      var formdata = new FormData();
-      formdata.append('text', descripcion.value);
-      formdata.append('titulo', titulo.value);
-      formdata.append('tipo', '1');
-      formdata.append('categoria', '');
+    if (response.assets[0].type !== undefined) {
       formdata.append('image', {
         uri: response.assets[0].uri,
         type: response.assets[0].type,
         name: response.assets[0].fileName,
       });
-      formdata.append('user', username);
+    }
+    formdata.append('user', route.params.username);
 
-      var requestOptions = {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'multipart/form-data',
-        },
-        body: formdata,
-        redirect: 'follow',
-      };
+    var requestOptions = {
+      method: 'PUT',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'multipart/form-data',
+      },
+      body: formdata,
+      redirect: 'follow',
+    };
 
-      await fetch(`${URL}/api/post`, requestOptions)
-        .then(response => response.json())
-        .then(result => {
-          if ((result.status = 201)) {
-            Alert.alert('POST creado', 'Revise su publicación ', [
-              {
-                text: 'OK',
-                onPress: () => {
-                  setResponse(null);
-                  setTitulo({value: '', error: ''});
-                  setDescripcion({value: '', error: ''});
-                },
+    fetch(`${URL}/api/post`, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        if ((result.status = 201)) {
+          Alert.alert('POST editado', 'Revise su publicación ', [
+            {
+              text: 'OK',
+              onPress: () => {
+                setResponse({
+                  assets: [{uri: response.assets[0].uri}],
+                });
+                navigation.push('PerfilListadoPost');
               },
-            ]);
-          } else {
-            Alert.alert('Ooops! Algo salió mal', 'Inténtalo de nuevo', [
-              {text: 'OK', onPress: () => {}},
-            ]);
-          }
-        })
-        .catch(error => {
+            },
+          ]);
+        } else {
           Alert.alert('Ooops! Algo salió mal', 'Inténtalo de nuevo', [
             {text: 'OK', onPress: () => {}},
           ]);
-          console.log(error);
-        });
-    }
+        }
+      })
+      .catch(error => {
+        Alert.alert('Ooops! Algo salió mal', 'Inténtalo de nuevo', [
+          {text: 'OK', onPress: () => {}},
+        ]);
+        console.log(error);
+      });
   };
-  if (isLoading) return <LoadingComponent />;
+
   return (
     <View style={styles.generalContainer}>
       <FAB
         style={styles.fab}
         icon="check-circle"
-        label="Postear"
+        label="Editar"
         animated
         onPress={saveData}
       />
-      <Text style={styles.tituloNuevoPost}>CREAR POST</Text>
+      <Text style={styles.tituloNuevoPost}>EDITAR POST</Text>
       <View style={styles.formContainer}>
         <TextInput
           activeUnderlineColor={colorPallete.darkGreen}
@@ -110,7 +99,6 @@ export default function NuevoPostScreen({navigation}) {
           onChangeText={text => setTitulo({value: text, error: ''})}
           right={<TextInput.Affix text="/50" />}
         />
-        <Text style={styles.textError}>{titulo.error}</Text>
         <TextInput
           activeUnderlineColor={colorPallete.darkGreen}
           multiline={true}
@@ -121,7 +109,6 @@ export default function NuevoPostScreen({navigation}) {
           onChangeText={text => setDescripcion({value: text, error: ''})}
           right={<TextInput.Affix text="/200" />}
         />
-        <Text style={styles.textError}>{descripcion.error}</Text>
         <Text style={styles.textOpcional}>
           Si desea puede agregar una imagen referencial
         </Text>
@@ -142,7 +129,6 @@ export default function NuevoPostScreen({navigation}) {
           }>
           Agregar Imagen
         </Button>
-        {!response && <Text style={styles.textError1}>{image}</Text>}
 
         {response?.assets &&
           response?.assets.map(({uri}) => (
@@ -210,14 +196,5 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 80,
     backgroundColor: colorPallete.darkOrange,
-  },
-  textError: {
-    color: colorPallete.red,
-    fontSize: 12,
-  },
-  textError1: {
-    color: colorPallete.red,
-    fontSize: 12,
-    textAlign: 'center',
   },
 });

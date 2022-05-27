@@ -1,11 +1,21 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, Image, ScrollView, SafeAreaView } from 'react-native';
-import { colorPallete } from '../../data/colorPallete';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
+import {colorPallete} from '../../data/colorPallete';
+import YoutubePlayer from 'react-native-youtube-iframe';
 
-export default function TutorialDetalleScreen({ route }) {
+export default function TutorialDetalleScreen({route}) {
+  var ret = route.params.video.replace('https://www.youtube.com/watch?v=', '');
+
   return (
     <View style={styles.mainContainer}>
-      <Image style={styles.imagenTutorial} source={{ uri: route.params.imagen }}></Image>
+      <YoutubePlayer height="35%" play={false} videoId={ret} />
       <SafeAreaView>
         <ScrollView style={styles.contenidoTutorialContainer}>
           <Text style={styles.tituloTutorial}>{route.params.titulo}</Text>
@@ -30,16 +40,16 @@ const styles = StyleSheet.create({
   },
   contenidoTutorialContainer: {
     margin: 20,
-    height: '65%'
+    height: '65%',
   },
   imagenTutorial: {
     borderBottomLeftRadius: 30,
     borderBottomRightRadius: 30,
     width: '100%',
-    height: '30%'
+    height: '30%',
   },
   tituloTutorial: {
-    marginTop: 15,
+    marginTop: 10,
     color: colorPallete.darkGreen,
     fontSize: 22,
     fontWeight: '600',

@@ -1,9 +1,17 @@
 import React from 'react';
-import {StyleSheet, Image, Text, View} from 'react-native';
+import {
+  StyleSheet,
+  Image,
+  Text,
+  View,
+  ScrollView,
+  StatusBar,
+} from 'react-native';
 import {colorPallete} from '../../data/colorPallete';
 import RegisterForm from '../../components/auth/RegisterForm';
 
 export default function RegisterScreen() {
+  /**/
   return (
     <View style={styles.container}>
       <Image
@@ -29,22 +37,22 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     resizeMode: 'contain',
     marginTop: 0,
-    width: '80%',
-    height: '30%',
-    marginTop: 30,
+    width: '46%',
+    height: '28%',
+    marginTop: 5,
   },
   textContainer: {
     width: '70%',
   },
   registerTitle: {
-    marginTop: 20,
+    marginTop: 5,
     textAlign: 'center',
     color: colorPallete.darkGreen,
     fontSize: 22,
     fontWeight: '500',
   },
   registerText: {
-    marginTop: 20,
+    marginTop: 5,
     textAlign: 'center',
     color: colorPallete.darkText,
     fontStyle: 'italic',
