@@ -7,6 +7,7 @@ import LoginScreen from '../screens/auth/LoginScreen';
 import RegisterScreen from '../screens/auth/RegisterScreen';
 import AuthContext from '../components/auth/context';
 import {ActivityIndicator} from 'react-native-paper';
+import RNBootSplash from "react-native-bootsplash";
 import jwt_decode from 'jwt-decode';
 
 const MainNavigator = createNativeStackNavigator();
@@ -104,7 +105,7 @@ export default function AppNavigator() {
 
   return (
     <AuthContext.Provider value={authContext}>
-      <NavigationContainer>
+      <NavigationContainer onReady={() => RNBootSplash.hide()}>
         {loginState.userToken !== null ? (
           <DrawerNavigation />
         ) : (
