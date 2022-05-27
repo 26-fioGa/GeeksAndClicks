@@ -50,7 +50,7 @@ export default function LoginForm() {
                 {
                   text: 'OK',
                   onPress: () => {
-                    signIn(resData,username.value);
+                    signIn(resData, username.value);
                   },
                 },
               ],

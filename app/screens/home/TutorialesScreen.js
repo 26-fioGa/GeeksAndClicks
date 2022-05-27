@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useContext} from 'react';
 import {
   Text,
   View,
@@ -11,28 +11,26 @@ import {colorPallete} from '../../data/colorPallete';
 import {categoriesList} from '../../data/categoriesList';
 import CategoryCard from '../../components/home/CategoryCard';
 import LinearGradient from 'react-native-linear-gradient';
+import AuthContext from '../../components/auth/context';
+import LoadingComponent from '../../components/home/LoadingComponent';
 
 const TutorialesScreen = () => {
   const [username, setUsername] = useState(null);
-
-  const _userName = async () => {
-    try {
-      const result = JSON.parse(await AsyncStorage.getItem('user'));
-      console.log('xd');
-      console.log(result.username);
-      setUsername(result.username);
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  const {getToken} = useContext(AuthContext);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    _userName();
-  }, [_userName]);
+    getToken().then(result => {
+      setUsername(result.username);
+      setIsLoading(false);
+    });
+  }, []);
 
   const renderCategory = ({item}) => (
     <CategoryCard name={item.name} image={item.image} />
   );
+
+  if (isLoading) return <LoadingComponent />;
 
   return (
     <View style={styles.generalContainer}>

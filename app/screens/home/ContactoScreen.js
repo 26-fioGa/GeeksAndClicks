@@ -2,18 +2,25 @@ import * as React from 'react';
 import {Text, View, StyleSheet, FlatList, SafeAreaView} from 'react-native';
 import {colorPallete} from '../../data/colorPallete';
 import ContactCard from '../../components/home/ContactCard';
-import { contactsList } from '../../data/contactsList';
-
+import {contactsList} from '../../data/contactsList';
 
 export default function ContactoScreen() {
-
   const renderContact = ({item}) => (
-    <ContactCard image={item.image} name={item.name} phoneNumber={item.phoneNumber} email={item.email} />
+    <ContactCard
+      image={item.image}
+      name={item.name}
+      phoneNumber={item.phoneNumber}
+      email={item.email}
+    />
   );
   return (
     <View style={styles.contactContainer}>
       <Text style={styles.tituloContact}>CONTACTA A UN GEEK</Text>
-      <Text style={styles.descriptionContact}>Para un soporte especializado, puedes contactar a cualquier miembro de nuestro equipo, tendrás respuesta inmediata y pondremos en marcha la solución a tu problema.</Text>
+      <Text style={styles.descriptionContact}>
+        Para un soporte especializado, puedes contactar a cualquier miembro de
+        nuestro equipo, tendrás respuesta inmediata y pondremos en marcha la
+        solución a tu problema.
+      </Text>
       <SafeAreaView
         style={{
           justifyContent: 'center',
@@ -37,18 +44,17 @@ const styles = StyleSheet.create({
     height: '100%',
     backgroundColor: colorPallete.white,
     alignItems: 'flex-start',
-    padding: 20
+    padding: 20,
   },
   tituloContact: {
     fontSize: 20,
-    fontWeight:'400',
+    fontWeight: '400',
     color: colorPallete.darkGreen,
-    marginTop: 10
+    marginTop: 10,
   },
   descriptionContact: {
     color: colorPallete.darkText,
     lineHeight: 20,
     marginTop: 20,
-  }
+  },
 });
-

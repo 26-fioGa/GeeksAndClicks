@@ -1,20 +1,17 @@
-import React, { useReducer, useEffect, useState, useMemo } from 'react';
-import { View, AsyncStorage } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React, {useReducer, useEffect, useState, useMemo} from 'react';
+import {View, AsyncStorage} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import DrawerNavigation from './DrawerNavigation';
 import LoginScreen from '../screens/auth/LoginScreen';
 import RegisterScreen from '../screens/auth/RegisterScreen';
 import AuthContext from '../components/auth/context';
-import { ActivityIndicator } from 'react-native-paper';
-import jwt_decode from "jwt-decode";
+import {ActivityIndicator} from 'react-native-paper';
+import jwt_decode from 'jwt-decode';
 
 const MainNavigator = createNativeStackNavigator();
 
 export default function AppNavigator() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [userToken, setUserToken] = useState(null);
-
   const initialLoginState = {
     isLoading: true,
     userToken: null,
@@ -53,18 +50,16 @@ export default function AppNavigator() {
     () => ({
       signIn: async (user1, userName) => {
         const userToken = String(user1.body);
-        const decoded = jwt_decode(userToken);
-    
+
         try {
           await AsyncStorage.setItem(
             'user',
-            JSON.stringify({ token: userToken, id:decoded.id, username: userName }),
+            JSON.stringify({token: userToken, username: userName}),
           );
         } catch (e) {
           console.log(e);
         }
-        console.log('user token: ', userToken);
-        dispatch({ type: 'LOGIN', token: userToken });
+        dispatch({type: 'LOGIN', token: userToken});
         //AsyncStorage.setItem('token', resData.body); //JSON.stringify()
       },
       signOut: async () => {
@@ -73,13 +68,20 @@ export default function AppNavigator() {
         } catch (e) {
           console.log(e);
         }
-        dispatch({ type: 'LOGOUT' });
-      }
+        dispatch({type: 'LOGOUT'});
+      },
+      getToken: async () => {
+        try {
+          return JSON.parse(await AsyncStorage.getItem('user'));
+        } catch (e) {
+          console.log(e);
+        }
+      },
     }),
     [],
   );
 
-  useEffect(() => {
+  useMemo(() => {
     setTimeout(async () => {
       // setIsLoading(false);
       let userToken;
@@ -89,13 +91,12 @@ export default function AppNavigator() {
       } catch (e) {
         console.log(e);
       }
-      console.log('user token: ', userToken);
-      dispatch({ type: 'RETRIEVE_TOKEN', token: userToken });
+      dispatch({type: 'RETRIEVE_TOKEN', token: userToken});
     }, 1000);
   }, []);
   if (loginState.isLoading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
         <ActivityIndicator size="large" />
       </View>
     );
